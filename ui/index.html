@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8faff">
+  <meta name="description" content="选择学校，整理校园通知检索条件。">
+  <title>School Notice · 校园通知</title>
+  <link rel="stylesheet" href="./assets/style.css">
+  <script defer src="./assets/badge-catalog.js"></script>
+  <script defer src="./assets/badge-theme.js"></script>
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-school" viewBox="0 0 24 24"><path d="m3 10 9-6 9 6M5 10v9h14v-9M9 19v-6h6v6M2 20h20"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21M12 3c-3 3-4.5 6-4.5 9S9 18 12 21"/></symbol>
+    <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M20 13 13 20a2 2 0 0 1-2.8 0L4 13.8V4h9.8L20 10.2a2 2 0 0 1 0 2.8Z"/><circle cx="8.5" cy="8.5" r="1"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 6c-2.5-1.6-5.7-2-9-1v13c3.3-1 6.5-.6 9 1 2.5-1.6 5.7-2 9-1V5c-3.3-1-6.5-.6-9 1Zm0 0v13"/></symbol>
+  </svg>
+
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="School Notice 首页">
+        <span class="brand-symbol"><svg class="icon"><use href="#icon-book"/></svg></span>
+        <span class="brand-wordmark">school<span>notice</span><small>校园通知助手</small></span>
+      </a>
+      <span class="header-badge"><span class="badge-dot"></span> SCHOOL NOTICE <span class="badge-version">/ RESEARCH</span></span>
+    </header>
+
+    <div class="notice-marquee">
+      <p>那些攸关毕业和性命🎓💀的通知，10%发在微信群💬，10%发在学校官网🌐，剩下80%一般会分为若干个碎片🧩，散落在九州大地上那些最为幽深凶险之处🌋🐉</p>
+      <p>悬在泰山之巅⛰️，或沉在东海之底🌊，须在梦中接到启示💭之后，赤足🦶去往东、南、西、北分别寻到一位辅导员👩‍🏫、一位教秘👨‍💼、一位任课老师👨‍🏫、一位教办🏢</p>
+      <p>将他们的只言片语🗣️拼凑在一起后，得到正确的方位🧭，而后踏遍九州🗺️，寻回所有的碎片🧩，方能合成出通知的本来面目</p>
+    </div>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-eyebrow"><span class="eyebrow-line"></span> CAMPUS INFORMATION, IN ONE PLACE <span class="eyebrow-line"></span></div>
+        <h1 id="hero-title">重要的校园通知，<br><em>不再错过。</em></h1>
+      </section>
+
+      <section class="workspace" aria-label="校园通知检索设置">
+        <div class="workspace-topline"><span>NOTICE RESEARCH</span><span>01 <i></i> 02</span></div>
+        <div class="workspace-heading">
+          <div>
+            <span class="step-label">01 / 选择学校</span>
+            <p>输入学校名称，或从下方选择一所常用学校。</p>
+          </div>
+          <span class="heading-icon"><svg class="icon"><use href="#icon-school"/></svg></span>
+        </div>
+
+        <form id="notice-form" novalidate>
+          <div class="field school-field" id="school-field">
+            <label for="school-search">学校名称 <span class="required">*</span></label>
+            <div class="input-wrap search-wrap">
+              <svg class="icon field-icon"><use href="#icon-search"/></svg>
+              <input id="school-search" name="school" type="text" role="combobox" aria-autocomplete="list" aria-controls="school-options" aria-expanded="false" autocomplete="off" placeholder="搜索学校名称…" required>
+              <kbd class="shortcut">⌘ K</kbd>
+            </div>
+            <div id="school-options" class="school-options" role="listbox" hidden></div>
+            <p class="field-error" id="school-error" hidden>请输入或选择一所学校。</p>
+          </div>
+
+          <div class="quick-picks" aria-label="常用学校"><span>快速选择</span><div id="quick-picks-list"></div></div>
+
+          <div class="identity-card" id="identity-card" aria-live="polite">
+            <div class="school-emblem" id="school-emblem" aria-hidden="true"><img id="emblem-image" alt="" crossorigin="anonymous" referrerpolicy="no-referrer" hidden><span id="emblem-character">清</span><small id="emblem-code">THU</small></div>
+            <div class="identity-copy"><span class="identity-label">当前学校 / SCHOOL IDENTITY</span><strong id="identity-cn">清华大学</strong></div>
+          </div>
+
+          <div class="form-divider"><span class="step-label">02 / 检索范围</span></div>
+          <div class="field-grid">
+            <div class="field"><label for="school-url">学校官网 <span class="optional">选填</span></label><div class="input-wrap"><svg class="icon field-icon"><use href="#icon-globe"/></svg><input id="school-url" name="website" type="url" inputmode="url" placeholder="https://www.example.edu.cn"></div></div>
+            <div class="field"><label for="keywords">关注关键词 <span class="optional">选填</span></label><div class="input-wrap"><svg class="icon field-icon"><use href="#icon-tag"/></svg><input id="keywords" name="keywords" type="text" placeholder="例如：奖学金、招生、考试"></div></div>
+          </div>
+
+          <div class="form-footer"><p><svg class="icon"><use href="#icon-check"/></svg> 使用学校官网域名限定检索来源</p><div class="form-actions"><button type="submit" class="submit-button" id="submit-button">开始检索 <svg class="icon"><use href="#icon-arrow"/></svg></button><button type="button" class="stop-button" id="stop-button" disabled>停止检索</button></div></div>
+        </form>
+      </section>
+
+      <section class="results" id="results" aria-live="polite" hidden>
+        <div class="results-header">
+          <div class="results-heading"><span class="section-kicker">RESEARCH RESULTS</span><h2 id="results-title">检索结果</h2><p id="results-meta"></p></div>
+          <div class="export-actions" aria-label="下载检索结果">
+            <button type="button" class="export-button" id="export-pdf" title="下载通知摘要为 PDF" aria-label="下载通知摘要为 PDF" disabled><svg class="icon"><use href="#icon-download"/></svg><span>PDF</span></button>
+            <button type="button" class="export-button" id="export-markdown" disabled><svg class="icon"><use href="#icon-download"/></svg><span>Markdown</span></button>
+          </div>
+        </div>
+        <p id="download-error" class="result-error" role="alert" hidden></p>
+        <div class="run-state" id="run-state" role="status" hidden><span id="run-state-text"></span></div>
+        <div class="result-error" id="result-error" role="alert" hidden></div>
+        <div id="result-content" hidden>
+          <div class="summary-panel"><span class="section-kicker">AI SUMMARY</span><h3>通知摘要</h3><p id="summary-text"></p></div>
+          <section id="files-section" hidden aria-labelledby="files-title">
+            <div class="sources-heading"><h3 id="files-title">相关文件</h3><span id="file-count"></span></div>
+            <ul class="file-list" id="file-list"></ul>
+          </section>
+          <div class="sources-heading"><h3>原文来源</h3><span id="source-count"></span></div>
+          <ol class="notice-list" id="notice-list"></ol>
+          <details class="research-steps" id="research-steps" hidden><summary>查看检索过程</summary><ol id="step-list"></ol></details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>School Notice <span class="footer-separator">/</span> 校园通知助手</span><span>Find what matters on campus.</span></footer>
+  </div>
+</body>
+</html>
